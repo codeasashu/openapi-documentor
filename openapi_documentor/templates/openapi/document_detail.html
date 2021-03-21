@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load static %}
+{% block custom_javascript %}
+  <script defer src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"></script>
+{% endblock custom_javascript %}
+
+{% block title %}Api: {{ object.title }}{% endblock %}
+
+{% block content %}
+<redoc spec-url="{{ request.scheme }}://{{ request.get_host }}{% url 'api:openapi-api:spec' object.id %}?format=json"></redoc>
+{% endblock content %}

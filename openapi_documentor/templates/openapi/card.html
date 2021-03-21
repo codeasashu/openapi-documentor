@@ -1,0 +1,20 @@
+<div class="card mb-3">
+    <div class="card-header">
+        <a href="{% url 'users:apis' api.owner.username %}">{{ api.owner|title }}</a> /
+        <a class="card-title" href="{{ api.get_absolute_url }}">{{ api.title }}</a>
+    </div>
+    <div class="card-body">
+      <p><code>{{ api.doc|truncatechars:50 }}</code></p>
+      <hr />
+      <span class="badge badge-primary text-wrap">
+        <small>Revision: {{ api.rev }}</small>
+      </span>
+      {% if api.tags.count > 0 %}
+      <span>Tags: 
+        {% for mt in api.tags.most_common %}
+            <a href="{% url 'openapis:tag' mt %}" class="badge badge-success">{{mt}}</a>
+        {% endfor %}
+      </span>
+        {% endif %}
+    </div>
+</div>

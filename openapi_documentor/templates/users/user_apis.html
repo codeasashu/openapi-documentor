@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Apis{% endblock %}
+
+{% block content %}
+<div class="container">
+<h3>Apis</h3>
+{% if apis %}
+  {% for api in apis %}
+    {% include "../openapi/card.html" %}
+  {% endfor %}
+  {% include "../openapi/pagination.html" %}
+{% else %}
+  <p>There are no apis.</p>
+{% endif %}
+</div>
+{% endblock content %}

@@ -19,7 +19,7 @@
     
     <!-- Latest compiled and minified Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <!-- Your stuff: Third-party CSS libraries go here -->
     
@@ -35,19 +35,19 @@
     {% block javascript %}
       
       <!-- Bootstrap JS and its dependencies-->
-      <script defer src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script defer src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
       <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
       <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
+      <script defer src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
       <!-- Your stuff: Third-party javascript libraries go here -->
       
 
       <!-- place project specific Javascript in this file -->
       
       <script defer src="{% static 'js/project.js' %}"></script>
-      
-
     {% endblock javascript %}
+    {% block custom_javascript %}
+    {% endblock custom_javascript %}
 
   </head>
 
@@ -69,6 +69,11 @@
               <a class="nav-link" href="{% url 'about' %}">About</a>
             </li>
             {% if request.user.is_authenticated %}
+              {% if perms.openapi.add_document %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'admin:openapi_document_changelist' %}">Manage apis</a>
+              </li>
+              {% endif %}
               <li class="nav-item">
                 {# URL provided by django-allauth/account/urls.py #}
                 <a class="nav-link" href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a>
@@ -88,12 +93,17 @@
               </li>
             {% endif %}
           </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <select class="form-control mr-sm-2 my-2 my-lg-0 openapi-select" name="state">
+              <option value="">Select api</option>
+            </select>
+          </form>
         </div>
       </nav>
 
     </div>
 
-    <div class="container">
+    <div class="wrapper">
 
       {% if messages %}
           {% for message in messages %}
