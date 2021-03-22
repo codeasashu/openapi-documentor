@@ -6,5 +6,3 @@ MYSQL_USER=!!!Set MySql User!!!
 MYSQL_PASSWORD=!!!Set MySql Password!!!
 MYSQL_ROOT_PASSWORD=!!!Set MySql Password!!!
 MYSQL_DATABASE=openapi_documentor
-
-
