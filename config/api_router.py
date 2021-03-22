@@ -14,7 +14,9 @@ router.register("users", UserViewSet)
 
 app_name = "api"
 urlpatterns = [
-    path("openapis/", include(
-        "openapi_documentor.openapi.api.urls", namespace="openapi-api")),
+    path(
+        "openapis/",
+        include("openapi_documentor.openapi.api.urls", namespace="openapi-api"),
+    ),
 ]
 urlpatterns += router.urls

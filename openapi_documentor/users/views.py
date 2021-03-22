@@ -3,24 +3,28 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import ListView, DetailView, RedirectView, UpdateView
+from django.views.generic import DetailView, ListView, RedirectView, UpdateView
+
 from openapi_documentor.openapi.models import Document
 
 User = get_user_model()
 
+
 class UserApiView(LoginRequiredMixin, ListView):
-    context_object_name = 'apis'
+    context_object_name = "apis"
     paginate_by = 10
-    template_name = 'user_apis.html'
+    template_name = "user_apis.html"
 
     def get_queryset(self):
-        username = self.kwargs.get('username', None)
+        username = self.kwargs.get("username", None)
         if username:
             return Document.objects.filter(owner__username=username)
         else:
             return Document.objects.none()
 
+
 user_api_view = UserApiView.as_view()
+
 
 class UserDetailView(LoginRequiredMixin, DetailView):
 

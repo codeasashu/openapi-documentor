@@ -12,7 +12,7 @@ env = environ.Env()
 env.read_env(str(ROOT_DIR / ".env"))
 
 # if READ_DOT_ENV_FILE:
-    # OS environment variables take precedence over variables from .env
+# OS environment variables take precedence over variables from .env
 
 
 # GENERAL
@@ -72,7 +72,7 @@ THIRD_PARTY_APPS = [
     "rest_framework.authtoken",
     "corsheaders",
     "taggit",
-    'allauth.socialaccount.providers.google',
+    "allauth.socialaccount.providers.google",
 ]
 
 LOCAL_APPS = [
@@ -279,8 +279,8 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.TokenAuthentication",
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
-    'DEFAULT_PAGINATION_CLASS': "rest_framework.pagination.PageNumberPagination",
-    'PAGE_SIZE': 10
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
 }
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup

@@ -1,9 +1,9 @@
 from django.urls import path
 
 from openapi_documentor.openapi.views import (
-    api_list_view,
     api_detail_view,
-    api_tagged_view
+    api_list_view,
+    api_tagged_view,
 )
 
 app_name = "openapi"
