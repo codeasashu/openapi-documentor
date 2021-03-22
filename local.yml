@@ -1,8 +1,8 @@
 version: '3'
 
 volumes:
-  local_postgres_data: {}
-  local_postgres_data_backups: {}
+  mysql_data: {}
+  mysql_data_backups: {}
 
 services:
   django:
@@ -12,27 +12,24 @@ services:
     image: openapi_documentor_local_django
     container_name: django
     depends_on:
-      - postgres
+      - mysql
     volumes:
       - .:/app:z
     env_file:
       - ./.envs/.local/.django
-      - ./.envs/.local/.postgres
+      - ./.envs/.local/.mysql
     ports:
       - "8000:8000"
     command: /start
 
-  postgres:
-    build:
-      context: .
-      dockerfile: ./compose/production/postgres/Dockerfile
-    image: openapi_documentor_production_postgres
-    container_name: postgres
+  mysql:
+    image: mariadb:latest
     volumes:
-      - local_postgres_data:/var/lib/postgresql/data:Z
-      - local_postgres_data_backups:/backups:z
+      - mysql_data:/var/lib/mysql:z
+      - mysql_data_backups:/backups:z
     env_file:
-      - ./.envs/.local/.postgres
+      - ./.envs/.production/.mysql
+      - .env
 
   docs:
     image: openapi_documentor_local_docs

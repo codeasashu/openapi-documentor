@@ -1,3 +1,8 @@
 # PostgreSQL
 # ------------------------------------------------------------------------------
-DATABASE_URL=mysql://root:root@mysql/openapi_documentor
+MYSQL_HOST=mysql
+MYSQL_PORT=3306
+MYSQL_USER=!!!Set MySql User!!!
+MYSQL_PASSWORD=!!!Set MySql Password!!!
+MYSQL_ROOT_PASSWORD=!!!Set MySql Password!!!
+MYSQL_DATABASE=openapi_documentor
