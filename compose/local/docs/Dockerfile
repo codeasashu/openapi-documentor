@@ -6,8 +6,8 @@ ENV PYTHONDONTWRITEBYTECODE 1
 RUN apt-get update \
     # dependencies for building Python packages
     && apt-get install -y build-essential \
-    # psycopg2 dependencies
-    && apt-get install -y libpq-dev \
+    # mysql dependencies
+    && apt-get install -y default-libmysqlclient-dev \
     # Translations dependencies
     && apt-get install -y gettext \
     # Uncomment below lines to enable Sphinx output to latex and pdf
