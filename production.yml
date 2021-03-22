@@ -1,8 +1,8 @@
 version: '3'
 
 volumes:
-  production_postgres_data: {}
-  production_postgres_data_backups: {}
+  mysql_data: {}
+  mysql_data_backups: {}
   production_traefik: {}
 
 services:
@@ -10,25 +10,22 @@ services:
     build:
       context: .
       dockerfile: ./compose/production/django/Dockerfile
-    image: openapi_documentor_production_django
+    image: openapi_documentor:1.0
     depends_on:
-      - postgres
+      - mysql
       - redis
     env_file:
       - ./.envs/.production/.django
-      - ./.envs/.production/.postgres
+      - ./.envs/.production/.mysql
     command: /start
-
-  postgres:
-    build:
-      context: .
-      dockerfile: ./compose/production/postgres/Dockerfile
-    image: openapi_documentor_production_postgres
+  
+  mysql:
+    image: mariadb:latest
     volumes:
-      - production_postgres_data:/var/lib/postgresql/data:Z
-      - production_postgres_data_backups:/backups:z
+      - mysql_data:/var/lib/mysql/data:Z
+      - mysql_data_backups:/backups:z
     env_file:
-      - ./.envs/.production/.postgres
+      - ./.envs/.production/.mysql
 
   traefik:
     build:
@@ -54,4 +51,4 @@ services:
     env_file:
       - ./.envs/.production/.django
     volumes:
-      - production_postgres_data_backups:/backups:z
+      - mysql_data_backups:/backups:z
