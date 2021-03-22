@@ -1,10 +1,6 @@
 from django.urls import path
 
-from .views import (
-    OpenapiListView,
-    OpenapiDetailView,
-    OpenapiSpecView,
-)
+from .views import OpenapiDetailView, OpenapiListView, OpenapiSpecView
 
 app_name = "openapi-apis"
 urlpatterns = [
