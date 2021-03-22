@@ -1,0 +1,3 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+DATABASE_URL=mysql://root:root@mysql/openapi_documentor

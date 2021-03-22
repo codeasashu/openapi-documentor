@@ -1,0 +1,37 @@
+# General
+# ------------------------------------------------------------------------------
+DJANGO_READ_DOT_ENV_FILE=1
+DJANGO_SETTINGS_MODULE=config.settings.production
+DJANGO_SECRET_KEY=SAxRz9LWA2jgbUs4D2q4g6QgSJ5wdhx3EsjmIeJ4e5z4hCJKUDqZWMi076S8AQE6
+DJANGO_ADMIN_URL=s2idPac7aLopIgIpp9Zv6y1ljYg1rNLb/
+DJANGO_ALLOWED_HOSTS='*'
+
+# Security
+# ------------------------------------------------------------------------------
+# TIP: better off using DNS, however, redirect is OK too
+DJANGO_SECURE_SSL_REDIRECT=0
+
+# Email
+# ------------------------------------------------------------------------------
+DJANGO_SERVER_EMAIL=
+
+
+# AWS
+# ------------------------------------------------------------------------------
+DJANGO_AWS_ACCESS_KEY_ID=
+DJANGO_AWS_SECRET_ACCESS_KEY=
+DJANGO_AWS_STORAGE_BUCKET_NAME=
+
+# django-allauth
+# ------------------------------------------------------------------------------
+DJANGO_ACCOUNT_ALLOW_REGISTRATION=True
+
+# Gunicorn
+# ------------------------------------------------------------------------------
+WEB_CONCURRENCY=4
+
+
+# Redis
+# ------------------------------------------------------------------------------
+REDIS_URL=redis://redis:6379/0
+
