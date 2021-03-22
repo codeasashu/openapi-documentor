@@ -1,6 +1,8 @@
 import json
+
 from rest_framework import serializers
-from openapi_documentor.openapi.models import Document, TaggedDocument
+
+from openapi_documentor.openapi.models import Document
 
 
 class TagListSerializer(serializers.ListField):
@@ -12,20 +14,22 @@ class TagListSerializer(serializers.ListField):
 
 class DocumentSerializer(serializers.ModelSerializer):
     tags = TagListSerializer()
+
     class Meta:
         model = Document
-        fields = '__all__'
-    
+        fields = "__all__"
+
     def to_representation(self, instance):
         """Parse openapi doc"""
         ret = super().to_representation(instance)
-        ret['formatted'] = json.loads(instance.formatted)
+        ret["formatted"] = json.loads(instance.formatted)
         return ret
+
 
 class DocumentSpecSerializer(DocumentSerializer):
     class Meta:
         model = Document
-        fields = ('formatted',)
-    
+        fields = ("formatted",)
+
     def to_representation(self, instance):
         return json.loads(instance.formatted)

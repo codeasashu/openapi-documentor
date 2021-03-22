@@ -22,7 +22,7 @@ services:
       - "5000:5000"
     volumes:
       - static_data:/app/staticfiles:z
-  
+
   mysql:
     image: mariadb:latest
     volumes:
@@ -43,7 +43,7 @@ services:
       - static_data:/var/www/html/staticfiles:ro
     ports:
       - "0.0.0.0:8083:80"
- 
+
   redis:
     image: redis:5.0
 

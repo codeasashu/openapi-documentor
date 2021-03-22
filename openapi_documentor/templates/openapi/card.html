@@ -10,7 +10,7 @@
         <small>Revision: {{ api.rev }}</small>
       </span>
       {% if api.tags.count > 0 %}
-      <span>Tags: 
+      <span>Tags:
         {% for mt in api.tags.most_common %}
             <a href="{% url 'openapis:tag' mt %}" class="badge badge-success">{{mt}}</a>
         {% endfor %}
