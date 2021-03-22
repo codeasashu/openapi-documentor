@@ -7,7 +7,7 @@ RUN apt-get update \
   # dependencies for building Python packages
   && apt-get install -y build-essential \
   # psycopg2 dependencies
-  && apt-get install -y libpq-dev \
+  && apt-get install -y default-libmysqlclient-dev \
   # Translations dependencies
   && apt-get install -y gettext \
   # cleaning up unused files
@@ -35,5 +35,7 @@ COPY --chown=django:django . /app
 USER django
 
 WORKDIR /app
+
+RUN mkdir staticfiles && chown -R django:django staticfiles
 
 ENTRYPOINT ["/entrypoint"]

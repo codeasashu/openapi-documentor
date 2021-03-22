@@ -7,5 +7,5 @@
 {% block title %}Api: {{ object.title }}{% endblock %}
 
 {% block content %}
-<redoc spec-url="{{ request.scheme }}://{{ request.get_host }}{% url 'api:openapi-api:spec' object.id %}?format=json"></redoc>
+<redoc spec-url="{{ request.request.build_absolute_uri }}{% url 'api:openapi-api:spec' object.id %}?format=json"></redoc>
 {% endblock content %}

@@ -4,4 +4,24 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
+mysql_ready() {
+python << END
+import sys
+from MySQLdb import _mysql, _exceptions
+try:
+    _mysql.connect("$MYSQL_HOST","root","$MYSQL_PASSWORD","$MYSQL_DATABASE")
+except _exceptions.OperationalError:
+    sys.exit(-1)
+sys.exit(0)
+END
+}
+
+until mysql_ready; do
+  >&2 echo 'Waiting for MySql to become available...'
+  sleep 1
+done
+>&2 echo 'MySql is available'
+
+export DATABASE_URL="mysql://root:${MYSQL_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}"
+
 exec "$@"

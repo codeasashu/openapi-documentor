@@ -1,6 +1,7 @@
 version: '3'
 
 volumes:
+  static_data: {}
   mysql_data: {}
   mysql_data_backups: {}
   production_traefik: {}
@@ -15,35 +16,37 @@ services:
       - mysql
       - redis
     env_file:
-      - ./.envs/.production/.django
-      - ./.envs/.production/.mysql
+      - .env
     command: /start
+    ports:
+      - "5000:5000"
+    volumes:
+      - static_data:/app/staticfiles:z
   
   mysql:
     image: mariadb:latest
     volumes:
-      - mysql_data:/var/lib/mysql/data:Z
+      - mysql_data:/var/lib/mysql:z
       - mysql_data_backups:/backups:z
     env_file:
       - ./.envs/.production/.mysql
+      - .env
 
-  traefik:
+  nginx:
     build:
       context: .
-      dockerfile: ./compose/production/traefik/Dockerfile
-    image: openapi_documentor_production_traefik
+      dockerfile: ./compose/production/nginx/Dockerfile
+    image: openapi_documentor_production_nginx
     depends_on:
       - django
     volumes:
-      - production_traefik:/etc/traefik/acme:z
+      - static_data:/var/www/html/staticfiles:ro
     ports:
-      - "0.0.0.0:80:80"
-      - "0.0.0.0:443:443"
-
+      - "0.0.0.0:8083:80"
+ 
   redis:
     image: redis:5.0
 
-  
   awscli:
     build:
       context: .
