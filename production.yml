@@ -3,7 +3,9 @@ version: '3'
 volumes:
   static_data: {}
   mysql_data: {}
+  mysql_local_data: {}
   mysql_data_backups: {}
+  mysql_local_data_backups: {}
   production_traefik: {}
 
 services:
@@ -26,8 +28,8 @@ services:
   mysql:
     image: mariadb:latest
     volumes:
-      - mysql_data:/var/lib/mysql:z
-      - mysql_data_backups:/backups:z
+      - mysql_local_data:/var/lib/mysql:z
+      - mysql_local_data_backups:/backups:z
     env_file:
       - ./.envs/.production/.mysql
       - .env

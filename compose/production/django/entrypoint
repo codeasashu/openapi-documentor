@@ -9,7 +9,7 @@ python << END
 import sys
 from MySQLdb import _mysql, _exceptions
 try:
-    _mysql.connect("$MYSQL_HOST","root","$MYSQL_PASSWORD","$MYSQL_DATABASE")
+    _mysql.connect("$MYSQL_HOST","root","$MYSQL_ROOT_PASSWORD","$MYSQL_DATABASE")
 except _exceptions.OperationalError:
     sys.exit(-1)
 sys.exit(0)
@@ -22,6 +22,6 @@ until mysql_ready; do
 done
 >&2 echo 'MySql is available'
 
-export DATABASE_URL="mysql://root:${MYSQL_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}"
+export DATABASE_URL="mysql://root:${MYSQL_ROOT_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}"
 
 exec "$@"

@@ -1,8 +1,8 @@
 version: '3'
 
 volumes:
-  mysql_data: {}
-  mysql_data_backups: {}
+  mysql_local_data: {}
+  mysql_local_data_backups: {}
 
 services:
   django:
@@ -19,17 +19,16 @@ services:
       - ./.envs/.local/.django
       - ./.envs/.local/.mysql
     ports:
-      - "8000:8000"
+      - "8004:8000"
     command: /start
 
   mysql:
     image: mariadb:latest
     volumes:
-      - mysql_data:/var/lib/mysql:z
-      - mysql_data_backups:/backups:z
+      - mysql_local_data:/var/lib/mysql:z
+      - mysql_local_data_backups:/backups:z
     env_file:
-      - ./.envs/.production/.mysql
-      - .env
+      - ./.envs/.local/.mysql
 
   docs:
     image: openapi_documentor_local_docs

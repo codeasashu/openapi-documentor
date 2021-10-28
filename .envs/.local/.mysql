@@ -2,7 +2,7 @@
 # ------------------------------------------------------------------------------
 MYSQL_HOST=mysql
 MYSQL_PORT=3306
-MYSQL_USER=!!!Set MySql User!!!
-MYSQL_PASSWORD=!!!Set MySql Password!!!
-MYSQL_ROOT_PASSWORD=!!!Set MySql Password!!!
+MYSQL_USER=someuser
+MYSQL_PASSWORD=12345678
+MYSQL_ROOT_PASSWORD=12345678
 MYSQL_DATABASE=openapi_documentor
