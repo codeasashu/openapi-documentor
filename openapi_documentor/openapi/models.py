@@ -53,6 +53,8 @@ class Document(models.Model):
         ordering = ["-modified"]
 
     def clean(self):
+        if not self.doc:
+            raise ValidationError(_("Document is required"))
         parsed_doc = self._parse_doc(self.doc)
         if not parsed_doc:
             raise ValidationError(_("Only Json and Yaml are allowed"))

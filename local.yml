@@ -28,20 +28,5 @@ services:
       - mysql_local_data:/var/lib/mysql:z
       - mysql_local_data_backups:/backups:z
     env_file:
-      - ./.envs/.production/.mysql
-
-  docs:
-    image: openapi_documentor_local_docs
-    container_name: docs
-    build:
-      context: .
-      dockerfile: ./compose/local/docs/Dockerfile
-    env_file:
-      - ./.envs/.local/.django
-    volumes:
-      - ./docs:/docs:z
-      - ./config:/app/config:z
-      - ./openapi_documentor:/app/openapi_documentor:z
-    ports:
-      - "7000:7000"
-    command: /start-docs
+      - ./.envs/.local/.mysql
+      - ./.env

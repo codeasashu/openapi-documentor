@@ -1,0 +1,6 @@
+<!doctype html><html lang="en" class="dark"><head><meta charset="UTF-8"><title>React openapi designer</title><script defer="defer" src="app.standalone.js"></script></head><body style="background:black"><react-openapi-designer spec="https://petstore3.swagger.io/api/v3/openapi.json"/><script>const listener = function(spec) {
+            console.log('Got spec', spec);
+        }
+        document.addEventListener("DOMContentLoaded", function(event) {
+            window.ReactOpenapiDesigner.setListener(listener);
+        });</script></body></html>

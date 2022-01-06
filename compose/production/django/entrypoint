@@ -4,6 +4,8 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
+echo "Pass: $MYSQL_ROOT_PASSWORD\n"
+
 mysql_ready() {
 python << END
 import sys

@@ -8,6 +8,8 @@ from rest_framework.authtoken.views import obtain_auth_token
 
 from openapi_documentor.openapi.views import api_list_view
 
+# from openapi_documentor.openapi.admin import admin_site
+
 urlpatterns = [
     path("", api_list_view, name="home"),
     path(
@@ -15,6 +17,7 @@ urlpatterns = [
     ),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
+    # path("myadmin/", admin_site.urls),
     # User management
     path("users/", include("openapi_documentor.users.urls", namespace="users")),
     path("openapis/", include("openapi_documentor.openapi.urls", namespace="openapis")),
