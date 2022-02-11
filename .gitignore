@@ -273,3 +273,5 @@ openapi_documentor/media/
 
 .ipython/
 .env
+data/
+*.sql
