@@ -1,0 +1,48 @@
+version: '3'
+
+volumes:
+  static_data: {}
+  mysql_data: {}
+  mysql_data_backups: {}
+  production_traefik: {}
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: ./compose/production/django/Dockerfile
+    image: openapi_documentor:1.0
+    depends_on:
+      - mysql
+      - redis
+    env_file:
+      - .env
+    command: /start
+    ports:
+      - "5000:5000"
+    volumes:
+      - static_data:/app/staticfiles:z
+
+  mysql:
+    image: mariadb:latest
+    volumes:
+      - ./data/mysql:/var/lib/mysql:z
+      - mysql_data_backups:/backups:z
+    env_file:
+      - ./.envs/.production/.mysql
+      - .env
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./compose/production/nginx/Dockerfile
+    image: openapi_documentor_production_nginx
+    depends_on:
+      - django
+    volumes:
+      - static_data:/var/www/html/staticfiles:ro
+    ports:
+      - "0.0.0.0:8083:80"
+
+  redis:
+    image: redis:5.0
