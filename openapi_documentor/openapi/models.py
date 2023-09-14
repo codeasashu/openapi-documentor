@@ -4,7 +4,7 @@ import uuid
 import yaml
 
 try:
-    from yaml import CLoader as YamlLoader
+    from yaml import Loader as YamlLoader
 except ImportError:
     from yaml import YamlLoader
 
@@ -45,8 +45,9 @@ class Document(models.Model):
         default=OpenapiVersions.THREEZERO,
     )  # oas 3.0
     owner = models.ForeignKey(User, on_delete=models.DO_NOTHING, default=None)
-    created = models.DateTimeField("date published")
-    modified = models.DateTimeField("date modified")
+    created = models.DateTimeField("date published", auto_now_add=True)
+    modified = models.DateTimeField("date modified", auto_now=True)
+    editors = models.ManyToManyField(User, default=None, related_name="editors", blank=True)
     tags = TaggableManager(through=TaggedDocument)
 
     class Meta:
