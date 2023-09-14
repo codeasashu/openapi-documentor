@@ -4,7 +4,7 @@ import uuid
 import yaml
 
 try:
-    from yaml import CLoader as YamlLoader
+    from yaml import Loader as YamlLoader
 except ImportError:
     from yaml import YamlLoader
 

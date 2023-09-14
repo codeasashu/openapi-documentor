@@ -5,7 +5,7 @@ ipdb==0.13.5  # https://github.com/gotcha/ipdb
 
 # Testing
 # ------------------------------------------------------------------------------
-mypy==0.812  # https://github.com/python/mypy
+mypy==1.5.1  # https://github.com/python/mypy
 django-stubs==1.7.0  # https://github.com/typeddjango/django-stubs
 pytest==6.2.2  # https://github.com/pytest-dev/pytest
 pytest-sugar==0.9.4  # https://github.com/Frozenball/pytest-sugar
@@ -32,3 +32,4 @@ django-debug-toolbar==3.2  # https://github.com/jazzband/django-debug-toolbar
 django-extensions==3.1.1  # https://github.com/django-extensions/django-extensions
 django-coverage-plugin==1.8.0  # https://github.com/nedbat/django_coverage_plugin
 pytest-django==4.1.0  # https://github.com/pytest-dev/pytest-django
+typed-ast==1.5.4

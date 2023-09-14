@@ -22,7 +22,7 @@ class DocumentAdmin(admin.ModelAdmin):
         qs = super(DocumentAdmin, self).get_queryset(request)
         if request.user.is_superuser:
             return qs
-        return qs.filter(Q(owner=request.user) | Q(editors=request.user))
+        return qs.filter(Q(owner=request.user) | Q(editors=request.user)).distinct()
 
     def change_view(
         self, request: HttpRequest, object_id: str, **kwargs
