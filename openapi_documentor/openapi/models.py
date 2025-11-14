@@ -4,13 +4,14 @@ import uuid
 import yaml
 
 try:
-    from yaml import CLoader as YamlLoader
+    from yaml import Loader as YamlLoader
 except ImportError:
     from yaml import YamlLoader
 
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
+from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 from openapi_spec_validator import validate_spec
 from taggit.managers import TaggableManager
@@ -45,8 +46,9 @@ class Document(models.Model):
         default=OpenapiVersions.THREEZERO,
     )  # oas 3.0
     owner = models.ForeignKey(User, on_delete=models.DO_NOTHING, default=None)
-    created = models.DateTimeField("date published")
-    modified = models.DateTimeField("date modified")
+    created = models.DateTimeField("date published", auto_now_add=True)
+    modified = models.DateTimeField("date modified", auto_now=True)
+    editors = models.ManyToManyField(User, default=None, related_name="editors", blank=True)
     tags = TaggableManager(through=TaggedDocument)
 
     class Meta:
@@ -56,6 +58,8 @@ class Document(models.Model):
         parsed_doc = self._parse_doc(self.doc)
         if not parsed_doc:
             raise ValidationError(_("Only Json and Yaml are allowed"))
+        if not settings.VALIDATE_SPEC:
+            return
         try:
             validate_spec(parsed_doc)
         except:  # noqa: E722
@@ -64,7 +68,7 @@ class Document(models.Model):
     def save(self, *args, **kwargs):
         parsed_doc = self._parse_doc(self.doc)
         if parsed_doc:
-            self.formatted = json.dumps(parsed_doc)
+            self.formatted = json.dumps(parsed_doc, default=str)
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):

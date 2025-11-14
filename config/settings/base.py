@@ -287,3 +287,4 @@ REST_FRAMEWORK = {
 CORS_URLS_REGEX = r"^/api/.*$"
 # Your stuff...
 # ------------------------------------------------------------------------------
+VALIDATE_SPEC = env.bool("VALIDATE_SPEC", True)
